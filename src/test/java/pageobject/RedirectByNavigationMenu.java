@@ -23,13 +23,17 @@ public class RedirectByNavigationMenu {
     @Step("Клик по кнопке [Конструктор]")
     //метод для клика по [Конструктору]
     public RedirectByNavigationMenu clickConstructorButton() {
-        new CustomClick().clickOnElement(driver, CONSTRUCTOR_BUTTON_LOCATOR);
+        new WebDriverWait(driver, Duration.ofSeconds(Constants.DEFAULT_TIMER))
+                .until(ExpectedConditions.elementToBeClickable(CONSTRUCTOR_BUTTON_LOCATOR));
+        driver.findElement(CONSTRUCTOR_BUTTON_LOCATOR).click();
         return this;
     }
     @Step("Клик по [Логотипу]")
     //метод для клика по [Логотипу]
     public RedirectByNavigationMenu clickLogoButton() {
-        new CustomClick().clickOnElement(driver, LOGO_BUTTON_LOCATOR);
+        new WebDriverWait(driver, Duration.ofSeconds(Constants.DEFAULT_TIMER))
+                .until(ExpectedConditions.elementToBeClickable(LOGO_BUTTON_LOCATOR));
+        driver.findElement(LOGO_BUTTON_LOCATOR).click();
         return this;
     }
     @Step("Переход на \"Главную страницу\"")

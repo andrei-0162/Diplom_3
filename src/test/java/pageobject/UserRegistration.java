@@ -18,11 +18,11 @@ public class UserRegistration {
     private final String REGISTRATION_URL = "https://stellarburgers.nomoreparties.site/register";
 
     //локаторы полей регистрации, кнопки [Зарегистрироваться], текста "Некорректный пароль"
-    private By nameField = By.xpath("//label[text() = 'Имя']/parent::div/input");
-    private By emailField = By.xpath("//label[text() = 'Email']/parent::div/input");
-    private By passwordField = By.xpath("//label[text() = 'Пароль']/parent::div/input");
-    private By registerButton = By.xpath(".//button[@class='button_button__33qZ0 button_button_type_primary__1O7Bx button_button_size_medium__3zxIa']");
-    private By invalidPasswordLabel = By.xpath(".//p[text()='Некорректный пароль']");
+    private By NAME_INPUT_LOCATOR = By.xpath("//label[text() = 'Имя']/parent::div/input");
+    private By EMAIL_INPUT_LOCATOR = By.xpath("//label[text() = 'Email']/parent::div/input");
+    private By PASSWORD_INPUT_LOCATOR = By.xpath("//label[text() = 'Пароль']/parent::div/input");
+    private By REGISTRATION_BUTTON_LOCATOR = By.xpath(".//button[@class='button_button__33qZ0 button_button_type_primary__1O7Bx button_button_size_medium__3zxIa']");
+    private By INVALID_PASSWORD_LABEL_LOCATOR = By.xpath(".//p[text()='Некорректный пароль']");
 
     @Step("Переход на страницу Регистрации")
     //метод для перехода на страницу "Регистрации"
@@ -34,25 +34,27 @@ public class UserRegistration {
     @Step("Ввод Имени")
     //метод для ввода Имени
     public UserRegistration setNameField(String name) {
-        driver.findElement(nameField).sendKeys(name);
+        driver.findElement(NAME_INPUT_LOCATOR).sendKeys(name);
         return this;
     }
     @Step("Ввод Email")
     //метод для ввода Email
     public UserRegistration setEmailField(String email) {
-        driver.findElement(emailField).sendKeys(email);
+        driver.findElement(EMAIL_INPUT_LOCATOR).sendKeys(email);
         return this;
     }
     @Step("Ввод Пароля")
     //метод для ввода Пароля
     public UserRegistration setPasswordField(String password) {
-        driver.findElement(passwordField).sendKeys(password);
+        driver.findElement(PASSWORD_INPUT_LOCATOR).sendKeys(password);
         return this;
     }
     @Step("Клик по кнопке [Зарегистрироваться]")
     //метод для клика на кнопку [Зарегистрироваться]
     public UserRegistration clickRegisterButton () {
-        new CustomClick().clickOnElement(driver, registerButton);
+        new WebDriverWait(driver, Duration.ofSeconds(Constants.DEFAULT_TIMER))
+                .until(ExpectedConditions.elementToBeClickable(REGISTRATION_BUTTON_LOCATOR));
+        driver.findElement(REGISTRATION_BUTTON_LOCATOR).click();
         return this;
     }
     @Step("Проверка успешной регистрации")
@@ -65,7 +67,7 @@ public class UserRegistration {
     //метод проверки безуспешной регистрации
     public UserRegistration checkUnsuccessfulRegistration() {
         new WebDriverWait(driver, Duration.ofSeconds(Constants.DEFAULT_TIMER))
-                .until(ExpectedConditions.visibilityOfElementLocated(invalidPasswordLabel));
+                .until(ExpectedConditions.visibilityOfElementLocated(INVALID_PASSWORD_LABEL_LOCATOR));
         return this;
     }
     @Step("Регистрации пользователя")

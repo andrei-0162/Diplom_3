@@ -3,6 +3,10 @@ package pageobject;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 
 public class RedirectToLoginPage {
@@ -40,7 +44,9 @@ public class RedirectToLoginPage {
     @Step("Клик по кнопке [Зарегистрироваться]")
     //метод для клика на кнопку [Зарегистрироваться]
     public RedirectToLoginPage clickLoginButton (By LOGIN_BUTTON_LOCATOR) {
-        new CustomClick().clickOnElement(driver, LOGIN_BUTTON_LOCATOR);
+        new WebDriverWait(driver, Duration.ofSeconds(Constants.DEFAULT_TIMER))
+                .until(ExpectedConditions.elementToBeClickable(LOGIN_BUTTON_LOCATOR));
+        driver.findElement(LOGIN_BUTTON_LOCATOR).click();
         return this;
     }
     @Step("Переход на страницу \"Личного кабинета\"")

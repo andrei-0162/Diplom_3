@@ -48,7 +48,9 @@ public class Login {
     @Step("Клик по кнопке [Войти]")
     //метод для клика по кнопке [Войти]
     public Login clickEnterButton() {
-        new CustomClick().clickOnElement(driver, ENTER_BUTTON_LOCATOR);
+        new WebDriverWait(driver, Duration.ofSeconds(Constants.DEFAULT_TIMER))
+                .until(ExpectedConditions.elementToBeClickable(ENTER_BUTTON_LOCATOR));
+        driver.findElement(ENTER_BUTTON_LOCATOR).click();
         return this;
     }
 
@@ -64,7 +66,9 @@ public class Login {
     @Step("Проверка перехода на страницу ЛК")
     //метод проверки редиректа на страницу "Личного кабинета" (после входа в систему)
     public Login checkUserLogin(String name) {
-        new CustomClick().clickOnElement(driver, PERSONAL_ACCOUNT_LOCATOR);
+        new WebDriverWait(driver, Duration.ofSeconds(Constants.DEFAULT_TIMER))
+                .until(ExpectedConditions.elementToBeClickable(PERSONAL_ACCOUNT_LOCATOR));
+        driver.findElement(PERSONAL_ACCOUNT_LOCATOR).click();
 
         By NAME_LOCATOR = By.xpath(String.format(NAME_LOCATOR_FORM, name));
         new WebDriverWait(driver, Duration.ofSeconds(Constants.DEFAULT_TIMER))

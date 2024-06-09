@@ -36,7 +36,9 @@ public class BurgerIngredientMenu {
     @Step("Клик по вкладке таб-бара \"Собери бургер\"")
     //метод для клика по вкладке таб-бара
     public BurgerIngredientMenu clickTabButton(By tab) {
-        new CustomClick().clickOnElement(driver, tab);
+        new WebDriverWait(driver, Duration.ofSeconds(Constants.DEFAULT_TIMER))
+                .until(ExpectedConditions.elementToBeClickable(tab));
+        driver.findElement(tab).click();
         return this;
     }
     @Step("Отображение соответствующего раздела ингредиентов конструктора \"Собери бургер\"")

@@ -6,29 +6,21 @@ import org.junit.rules.ExternalResource;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import userapieditor.Resources;
 
 
 public class DriverFactory extends ExternalResource {
 
-
-
-
-
-
     @Override
     protected void before() throws Throwable {
         initDriver();
         RestAssured.baseURI = Resources.BASE_URL;
-
     }
 
     @Override
     protected void after() {
         driver.quit();
     }
-
 
     private WebDriver driver;
 
@@ -46,12 +38,11 @@ public class DriverFactory extends ExternalResource {
         driver = new ChromeDriver();
     }
 
-
     private void initYandex() {
             WebDriverManager.chromedriver().setup();
             ChromeOptions options = new ChromeOptions();
-            System.setProperty("webdriver.chrome.driver", "C:\\WebDriver\\bin\\chromedriver.exe");
-            options.setBinary("C:\\Users\\Xiaomi\\AppData\\Local\\Yandex\\YandexBrowser\\Application\\browser.exe");
+            System.setProperty(Settings.WEB_DRIVER_PROPERTY, Settings.YANDEX_DRIVER_PATH);
+            options.setBinary(Settings.YANDEX_BROWSER_PATH);
             driver = new ChromeDriver(options);
     }
 
